@@ -1,0 +1,72 @@
+{
+  "projects": [
+    {
+      "id": "smart-factory-optimization",
+      "title": "Smart Factory Optimization",
+      "category": "Digital Twins",
+      "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800",
+      "description": "Implementation of a comprehensive digital twin solution for a major automotive manufacturer.",
+      "challenge": "Optimize production efficiency while reducing energy consumption and maintenance costs.",
+      "solution": "Developed a real-time digital twin system integrating IoT sensors, predictive maintenance, and AI-driven optimization.",
+      "results": {
+        "metrics": [
+          {
+            "label": "Efficiency Improvement",
+            "value": "32%",
+            "change": 32
+          },
+          {
+            "label": "Maintenance Cost Reduction",
+            "value": "45%",
+            "change": -45
+          },
+          {
+            "label": "Energy Savings",
+            "value": "28%",
+            "change": -28
+          }
+        ],
+        "testimonial": {
+          "quote": "MEIK LABS' digital twin solution transformed our manufacturing operations, delivering unprecedented efficiency gains.",
+          "author": "James Wilson",
+          "role": "Director of Operations, AutoTech Manufacturing"
+        }
+      },
+      "technologies": ["Azure Digital Twins", "IoT Hub", "Machine Learning", "Power BI"]
+    },
+    {
+      "id": "autonomous-warehouse-agents",
+      "title": "Autonomous Warehouse Agents",
+      "category": "AI Agents",
+      "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800",
+      "description": "Development of an AI-powered system for autonomous warehouse management.",
+      "challenge": "Create a scalable, autonomous system for managing warehouse operations with minimal human intervention.",
+      "solution": "Implemented a multi-agent system using reinforcement learning for optimal resource allocation and task scheduling.",
+      "results": {
+        "metrics": [
+          {
+            "label": "Operating Costs",
+            "value": "-40%",
+            "change": -40
+          },
+          {
+            "label": "Order Fulfillment Speed",
+            "value": "+65%",
+            "change": 65
+          },
+          {
+            "label": "Accuracy Rate",
+            "value": "99.9%",
+            "change": 15
+          }
+        ],
+        "testimonial": {
+          "quote": "The AI agents have revolutionized our warehouse operations, achieving levels of efficiency we never thought possible.",
+          "author": "Sarah Chen",
+          "role": "VP of Logistics, Global Distribution Co."
+        }
+      },
+      "technologies": ["Python", "TensorFlow", "ROS", "Custom ML Models"]
+    }
+  ]
+}

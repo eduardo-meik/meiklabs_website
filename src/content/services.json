@@ -1,0 +1,61 @@
+{
+  "services": [
+    {
+      "id": "ai-agents",
+      "title": "Desarrollo de Agentes de IA",
+      "shortDescription": "Agentes de IA personalizados para automatización de procesos y apoyo en la toma de decisiones",
+      "description": "Desarrollamos agentes de IA sofisticados que pueden automatizar procesos complejos, tomar decisiones inteligentes y aprender de las interacciones. Nuestros agentes están diseñados para integrarse perfectamente con sus sistemas y flujos de trabajo existentes.",
+      "icon": "Bot",
+      "features": [
+        "Procesamiento de Lenguaje Natural",
+        "Aprendizaje por Refuerzo",
+        "Sistemas Multi-Agente",
+        "Pipelines de Entrenamiento Personalizados",
+        "Servicios de Integración"
+      ],
+      "technologies": ["TensorFlow", "PyTorch", "OpenAI", "Langchain"],
+      "useCase": {
+        "title": "Optimización de Procesos de Fabricación",
+        "description": "Reducción del 45% en defectos de producción mediante agentes de control de calidad impulsados por IA"
+      }
+    },
+    {
+      "id": "digital-twins",
+      "title": "Soluciones de Gemelos Digitales",
+      "shortDescription": "Réplicas virtuales en tiempo real de sistemas físicos",
+      "description": "Creamos representaciones digitales precisas de sus activos y procesos físicos. Nuestras soluciones de gemelos digitales proporcionan monitoreo en tiempo real, mantenimiento predictivo y capacidades de optimización.",
+      "icon": "Boxes",
+      "features": [
+        "Monitoreo en Tiempo Real",
+        "Análisis Predictivo",
+        "Visualización 3D",
+        "Integración IoT",
+        "Optimización de Rendimiento"
+      ],
+      "technologies": ["Unity", "Unreal Engine", "Azure Digital Twins", "IoT Hub"],
+      "useCase": {
+        "title": "Implementación de Fábrica Inteligente",
+        "description": "Logro de mejora del 30% en eficiencia en operaciones de fabricación"
+      }
+    },
+    {
+      "id": "research",
+      "title": "Investigación Aplicada",
+      "shortDescription": "Investigación de vanguardia en IA y tecnologías de simulación",
+      "description": "Colabore con nuestro equipo de investigación para explorar nuevas fronteras en IA y tecnologías de gemelos digitales. Realizamos investigación aplicada que une la innovación académica con aplicaciones prácticas en la industria.",
+      "icon": "Flask",
+      "features": [
+        "Alianzas Académicas",
+        "Colaboración Industrial",
+        "Apoyo en Publicaciones",
+        "Desarrollo de Prototipos",
+        "Transferencia Tecnológica"
+      ],
+      "technologies": ["Python", "R", "MATLAB", "Scientific Computing"],
+      "useCase": {
+        "title": "Desarrollo de Algoritmos Innovadores",
+        "description": "Publicación de 12 artículos de investigación en revistas de alto impacto"
+      }
+    }
+  ]
+}

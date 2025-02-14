@@ -1,0 +1,30 @@
+{
+  "testimonials": [
+    {
+      "id": "tech-innovation",
+      "client": "TechCorp Innovation",
+      "representative": {
+        "name": "Michael Chang",
+        "role": "CTO"
+      },
+      "quote": "MEIK LABS' AI agents have transformed our development pipeline, reducing time-to-market by 60% while maintaining exceptional quality standards.",
+      "rating": 5,
+      "project": "AI Development Pipeline",
+      "date": "2024-12-15",
+      "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400"
+    },
+    {
+      "id": "manufacturing-solutions",
+      "client": "Advanced Manufacturing Solutions",
+      "representative": {
+        "name": "Dr. Lisa Martinez",
+        "role": "Head of R&D"
+      },
+      "quote": "The digital twin solution provided by MEIK LABS has revolutionized our production processes, leading to unprecedented efficiency gains and cost savings.",
+      "rating": 5,
+      "project": "Digital Twin Implementation",
+      "date": "2024-11-30",
+      "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400"
+    }
+  ]
+}

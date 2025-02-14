@@ -1,0 +1,29 @@
+{
+  "company": {
+    "name": "MEIK LABS",
+    "address": {
+      "street": "Cerro el Plomo 5931, oficina 510. Las Condes",
+      "city": "Santiago",
+      "country": "Chile",
+      "postalCode": "756116"
+    },
+    "coordinates": {
+      "lat": -33.4489,
+      "lng": -70.6693
+    }
+  },
+  "contact": {
+    "email": "contacto@meiklabs.com",
+    "phone": "+56 2 28146505",
+    "whatsapp": "+56 9 8765 4321"
+  },
+  "social": {
+    "linkedin": "https://www.linkedin.com/company/meik-io",
+    "twitter": "https://twitter.com/meiklabs",
+    "github": "https://github.com/Meiklabs"
+  },
+  "schedule": {
+    "weekdays": "Lunes - Viernes: 9:00 - 18:00",
+    "weekend": "Sábado - Domingo: Cerrado"
+  }
+}

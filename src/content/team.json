@@ -1,0 +1,15 @@
+{
+  "members": [
+    {
+      "id": "eduardo-cisternas",
+      "name": "Eduardo Cisternas",
+      "role": "Chief Executive Officer",
+      "image": "https://ik.imagekit.io/meiklabs/cara.jpg?auto=format&fit=crop&q=80&w=400",
+      "bio": "Experto en Innovación e Inteligencia Artificial.",
+      "expertise": ["Inteligencia Artificial", "Liderazgo Estratégico", "Transformación Digital"],
+      "linkedinUrl": "https://linkedin.com/in/eduardo-cisternas",
+      "publications": 45,
+      "patents": 12
+    }
+  ]
+}
