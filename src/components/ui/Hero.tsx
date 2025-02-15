@@ -91,8 +91,8 @@ export const Hero: React.FC<HeroProps> = ({
             aria-label="Hero background"
           />
           <div
-            className="absolute inset-0 bg-gradient-to-br from-black via-black/95 to-black/90 transition-opacity duration-500"
-            style={{ opacity: overlayOpacity }}
+            className="absolute inset-0 transition-opacity duration-500 bg-gradient-to-b from-black/70 to-black/50"
+            style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }}
           />
         </>
       )}

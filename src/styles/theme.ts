@@ -191,6 +191,11 @@ export const theme = {
         }
       }
     }
+  },
+  hero: {
+    // Hero-specific tokens
+    overlayOpacity: 0.6, // default overlay opacity for hero
+    backgroundOverlayColor: 'rgba(0, 0, 0, 0.8)' // base overlay color; the opacity is applied separately via overlayOpacity
   }
 } as const;
 

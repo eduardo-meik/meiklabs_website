@@ -25,8 +25,8 @@ export const Home: React.FC = () => {
       <Hero
         title="Transformando el Futuro con IA y Gemelos Digitales"
         subtitle="Soluciones tecnológicas innovadoras que impulsan la transformación digital de su empresa."
-        backgroundImage="https://images.unsplash.com/photo-T9rKvI3N0NM?auto=format&fit=crop&q=80"
-        overlayOpacity={0.4}
+        backgroundImage="https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?auto=format&fit=crop&q=80"
+        overlayOpacity={0.08}
         height="lg"
         className="-mt-16"
         ctaButton={{
@@ -221,7 +221,7 @@ export const Home: React.FC = () => {
           </div>
 
           <div className="bg-primary rounded-2xl text-white p-12 relative overflow-hidden">
-            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-10" />
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-65" />
             <div className="relative max-w-3xl mx-auto text-center">
               <h2 className="text-4xl font-display font-bold mb-6">
                 ¿Listo para Transformar su Negocio?
