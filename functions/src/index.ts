@@ -1,8 +1,10 @@
-import express from 'express';
+//functions\src\index.ts
+import { onRequest } from "firebase-functions/v2/https";
+import express, { RequestHandler } from 'express';
 import rateLimit from 'express-rate-limit';
-import { config } from './config';
-import { EmailService } from './email/service';
-import { EmailDiagnostics } from './email/diagnostics';
+import { config } from './server/config';
+import { EmailService } from './server/email/service';
+import { EmailDiagnostics } from './server/email/diagnostics';
 
 const app = express();
 
@@ -10,14 +12,14 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Rate limiting
+// Rate limiting - Cast the result to `RequestHandler` to avoid type errors
 const limiter = rateLimit({
   windowMs: config.rateLimit.windowMs,
   max: config.rateLimit.max,
   message: {
     error: 'Demasiadas solicitudes. Por favor, intente más tarde.',
   },
-});
+}) as unknown as RequestHandler;
 
 // Endpoint for sending test email
 app.post('/api/email/test', limiter, async (req, res) => {
@@ -59,7 +61,7 @@ app.post('/api/contact', limiter, async (req, res) => {
   }
 });
 
-// **New Endpoint for Newsletter Subscription**
+// New Endpoint for Newsletter Subscription
 app.post('/api/newsletter/subscribe', limiter, async (req, res) => {
   try {
     const { email } = req.body;
@@ -92,7 +94,5 @@ app.get('/api/email/diagnostics', async (req, res) => {
   }
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Servidor corriendo en puerto ${port}`);
-});
+// Remove local server startup for Firebase and export your Express app
+export const api = onRequest(app);

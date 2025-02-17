@@ -1,14 +1,14 @@
+//functions/src/server/config.ts
 import { z } from 'zod';
 import { config as loadEnv } from 'dotenv';
-import { fileURLToPath } from 'url';
-import { dirname, resolve } from 'path';
-import { readFileSync, existsSync } from 'fs';
+import { resolve } from 'path';
+import { existsSync } from 'fs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const envPath = resolve(dirname(dirname(__dirname)), '.env');
+// In CommonJS, __dirname is available automatically.
+// Since this file is located in functions/src/server, we go two levels up to reach the root folder.
+const envPath = resolve(__dirname, '..', '..', '.env');
 
-// Load environment variables
+// Load environment variables from the .env file at the root of the project.
 loadEnv({ path: envPath });
 
 const envSchema = z.object({
@@ -18,7 +18,7 @@ const envSchema = z.object({
   SMTP_USER: z.string(),
   SMTP_PASS: z.string(),
   SUPPORT_EMAIL: z.string().email(),
-  RATE_LIMIT_WINDOW_MS: z.string().transform(Number).default('900000'), // 15 minutos
+  RATE_LIMIT_WINDOW_MS: z.string().transform(Number).default('900000'), // 15 minutes
   RATE_LIMIT_MAX_REQUESTS: z.string().transform(Number).default('5'),
 });
 
@@ -52,7 +52,7 @@ export const config = {
       pass: env.SMTP_PASS,
     },
     tls: {
-      rejectUnauthorized: true
+      rejectUnauthorized: true,
     }
   },
   email: {
@@ -64,3 +64,4 @@ export const config = {
     max: env.RATE_LIMIT_MAX_REQUESTS,
   },
 } as const;
+

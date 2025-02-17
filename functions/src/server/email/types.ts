@@ -14,7 +14,7 @@ export const contactSchema = z.object({
 });
 
 // Type Definitions
-export type NewsletterSubscription = z.infer<typeof newsletterSchema>;
+//export type NewsletterSubscription = z.infer<typeof newsletterSchema>;
 export type ContactFormData = z.infer<typeof contactSchema>;
 
 export interface EmailResult {

@@ -50,7 +50,7 @@ export class EmailDiagnostics {
       const parts = field.split('.');
       let value = config.smtp;
       for (const part of parts) {
-        value = value[part as keyof typeof value];
+        (value as any) = (value as any)[part];
         if (!value) return true;
       }
       return false;
@@ -64,7 +64,6 @@ export class EmailDiagnostics {
       config: {
         host: config.smtp.host,
         port: config.smtp.port,
-        secure: config.smtp.secure,
         secure: config.smtp.port === 465,
         user: config.smtp.auth.user
       }
