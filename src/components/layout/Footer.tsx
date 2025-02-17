@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Container } from '../ui/Container';
 import { Mail, MapPin, Phone, Github, Twitter, Linkedin } from 'lucide-react';
 import { Logo } from '../ui/Logo';
+import { NewsletterForm } from '../forms/NewsletterForm';
 import contact from '../../content/contact.json';
 
 export const Footer: React.FC = () => {
@@ -165,22 +166,10 @@ export const Footer: React.FC = () => {
           {/* Newsletter */}
           <div>
             <h3 className="font-display font-bold text-lg mb-4">Mantente Informado</h3>
-            <p className="text-gray-300 mb-4">
+            <p className="text-gray-300 mb-6">
               Suscríbete a nuestro boletín para recibir las últimas actualizaciones en IA y tecnología de Gemelos Digitales.
             </p>
-            <form className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Ingresa tu correo electrónico"
-                className="flex-1 px-3 py-2 rounded-lg bg-primary-800/50 border border-primary-700 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-secondary"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 bg-secondary text-white rounded-lg hover:bg-secondary/90 transition-colors"
-              >
-                Suscribirse
-              </button>
-            </form>
+            <NewsletterForm />
           </div>
         </div>
 

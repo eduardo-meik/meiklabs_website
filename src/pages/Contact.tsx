@@ -3,21 +3,17 @@ import { PageLayout } from '../components/layout/PageLayout';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Mail, Phone, MapPin, Clock, Linkedin, Twitter, Github, MessageSquare } from 'lucide-react';
-import { useState, useCallback } from 'react';
-import { z } from 'zod';
+import { useState } from 'react';
 import contact from '../content/contact.json';
+import { z } from 'zod';
+import { contactFormSchema, type ContactFormData, type FormState } from '../types/forms';
 import type { ContactInfo } from '../types';
 
-// Schema de validación
-const contactSchema = z.object({
-  name: z.string().min(2, 'Nombre demasiado corto'),
-  company: z.string().optional(),
-  email: z.string().email('Email inválido'),
-  subject: z.string().min(5, 'Asunto demasiado corto'),
-  message: z.string().min(20, 'Mensaje demasiado corto'),
-});
-
-type ContactFormData = z.infer<typeof contactSchema>;
+const INITIAL_STATE: FormState = {
+  isSubmitting: false,
+  isSuccess: false,
+  error: null,
+};
 
 const Contact: React.FC = () => {
   const contactInfo = contact as ContactInfo;
@@ -28,12 +24,8 @@ const Contact: React.FC = () => {
     subject: '',
     message: ''
   });
+  const [formState, setFormState] = useState<FormState>(INITIAL_STATE);
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: 'success' | 'error' | null;
-    message: string | null;
-  }>({ type: null, message: null });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -46,42 +38,40 @@ const Contact: React.FC = () => {
     }
   };
 
-  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: null });
+    setFormState({ ...INITIAL_STATE, isSubmitting: true });
+    setErrors({});
     
     try {
       // Validar datos
-      const validatedData = contactSchema.parse(formData);
+      const validatedData = contactFormSchema.parse(formData);
       
-      // console.log('Enviando formulario:', validatedData);
-      
-      // Enviar datos al servidor
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(validatedData)
+        body: JSON.stringify({
+          access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+          subject: `Nuevo contacto: ${validatedData.subject}`,
+          from_name: validatedData.name,
+          message: validatedData.message,
+          email: validatedData.email,
+          company: validatedData.company,
+        }),
       });
       
-      let result;
-      try {
-        result = await response.json();
-      } catch (err) {
-        throw new Error('Error al procesar la respuesta del servidor');
-      }
+      const result = await response.json();
       
       if (!response.ok) {
         throw new Error(result.message || 'Error al enviar el mensaje');
       }
       
-      // Éxito
-      console.log('Respuesta del servidor:', result);
-      setSubmitStatus({
-        type: 'success',
-        message: result.message || 'Mensaje enviado exitosamente. Nos pondremos en contacto pronto.'
+      setFormState({
+        isSubmitting: false,
+        isSuccess: true,
+        error: null,
       });
-      
+
       // Limpiar formulario
       setFormData({
         name: '',
@@ -104,21 +94,20 @@ const Contact: React.FC = () => {
           }
         });
         setErrors(newErrors);
-        setSubmitStatus({
-          type: 'error',
-          message: 'Por favor, corrija los errores en el formulario.'
+        setFormState({
+          isSubmitting: false,
+          isSuccess: false,
+          error: 'Por favor, corrija los errores en el formulario.'
         });
       } else {
-        // Error de servidor u otro
-        setSubmitStatus({
-          type: 'error',
-          message: error instanceof Error ? error.message : 'Error al enviar el mensaje'
+        setFormState({
+          isSubmitting: false,
+          isSuccess: false,
+          error: error instanceof Error ? error.message : 'Error al enviar el mensaje'
         });
       }
-    } finally {
-      setIsSubmitting(false);
     }
-  }, [formData]);
+  };
 
   return (
     <PageLayout
@@ -230,17 +219,19 @@ const Contact: React.FC = () => {
                 Envíenos un Mensaje
               </h2>
               
-              {submitStatus.message && (
+              {(formState.error || formState.isSuccess) && (
                 <div className={`p-4 rounded-lg mb-6 ${
-                  submitStatus.type === 'success' 
+                  formState.isSuccess
                     ? 'bg-success-50 text-success-700 border border-success-200'
                     : 'bg-error-50 text-error-700 border border-error-200'
                 }`}>
-                  {submitStatus.message}
+                  {formState.isSuccess 
+                    ? '¡Mensaje enviado exitosamente! Nos pondremos en contacto pronto.'
+                    : formState.error}
                 </div>
               )}
               
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
@@ -252,12 +243,16 @@ const Contact: React.FC = () => {
                       id="name"
                       value={formData.name}
                       onChange={handleChange}
+                      aria-describedby={errors.name ? "name-error" : undefined}
+                      aria-invalid={!!errors.name}
                       className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
                         errors.name ? 'border-error-500' : 'border-gray-300'
                       }`}
+                      required
+                      disabled={formState.isSubmitting}
                     />
                     {errors.name && (
-                      <p className="mt-1 text-sm text-error-600">{errors.name}</p>
+                      <p id="name-error" className="mt-1 text-sm text-error-600" role="alert">{errors.name}</p>
                     )}
                   </div>
                   <div>
@@ -270,12 +265,16 @@ const Contact: React.FC = () => {
                       id="email"
                       value={formData.email}
                       onChange={handleChange}
+                      aria-describedby={errors.email ? "email-error" : undefined}
+                      aria-invalid={!!errors.email}
                       className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
                         errors.email ? 'border-error-500' : 'border-gray-300'
                       }`}
+                      required
+                      disabled={formState.isSubmitting}
                     />
                     {errors.email && (
-                      <p className="mt-1 text-sm text-error-600">{errors.email}</p>
+                      <p id="email-error" className="mt-1 text-sm text-error-600" role="alert">{errors.email}</p>
                     )}
                   </div>
                 </div>
@@ -289,12 +288,16 @@ const Contact: React.FC = () => {
                     id="subject"
                     value={formData.subject}
                     onChange={handleChange}
+                    aria-describedby={errors.subject ? "subject-error" : undefined}
+                    aria-invalid={!!errors.subject}
                     className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
                       errors.subject ? 'border-error-500' : 'border-gray-300'
                     }`}
+                    required
+                    disabled={formState.isSubmitting}
                   />
                   {errors.subject && (
-                    <p className="mt-1 text-sm text-error-600">{errors.subject}</p>
+                    <p id="subject-error" className="mt-1 text-sm text-error-600" role="alert">{errors.subject}</p>
                   )}
                 </div>
                 <div>
@@ -307,7 +310,8 @@ const Contact: React.FC = () => {
                     id="company"
                     value={formData.company}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-gray-50 disabled:text-gray-500"
+                    disabled={formState.isSubmitting}
                   />
                   </div>
                 <div>
@@ -320,20 +324,24 @@ const Contact: React.FC = () => {
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
+                    aria-describedby={errors.message ? "message-error" : undefined}
+                    aria-invalid={!!errors.message}
                     className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
                       errors.message ? 'border-error-500' : 'border-gray-300'
                     }`}
+                    required
+                    disabled={formState.isSubmitting}
                   ></textarea>
                   {errors.message && (
-                    <p className="mt-1 text-sm text-error-600">{errors.message}</p>
+                    <p id="message-error" className="mt-1 text-sm text-error-600" role="alert">{errors.message}</p>
                   )}
                 </div>
                 <Button 
                   type="submit" 
                   variant="primary" 
                   className="w-full sm:w-auto"
-                  isLoading={isSubmitting}
-                  disabled={isSubmitting}
+                  isLoading={formState.isSubmitting}
+                  disabled={formState.isSubmitting}
                 >
                   Enviar Mensaje
                 </Button>
