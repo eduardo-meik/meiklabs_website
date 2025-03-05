@@ -1,38 +1,91 @@
 {
   "projects": [
     {
-      "id": "smart-factory-optimization",
-      "title": "Smart Factory Optimization",
-      "category": "Digital Twins",
-      "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800",
-      "description": "Implementation of a comprehensive digital twin solution for a major automotive manufacturer.",
-      "challenge": "Optimize production efficiency while reducing energy consumption and maintenance costs.",
-      "solution": "Developed a real-time digital twin system integrating IoT sensors, predictive maintenance, and AI-driven optimization.",
+      "id": "simulador-realidad-mixta-logistica",
+      "title": "Capacitación en Realidad Mixta para Calibración de Maquinaria Logística",
+      "category": "Realidad Mixta Industrial",
+      "image": [
+        "https://ik.imagekit.io/meiklabs/img/HighresScreenshot00000.png?auto=format&fit=crop&q=80&w=800",
+        "https://ik.imagekit.io/meiklabs/img/vanderlande1.png?auto=format&fit=crop&q=80&w=800",
+        "https://ik.imagekit.io/meiklabs/img/vanderlande2.png?auto=format&fit=crop&q=80&w=800"
+      ],
+      "description": "Implementación de simulador en Realidad Mixta para capacitación de operarios en sistemas SORTING, eliminando la dependencia de expertos internacionales para calibración.",
+      "challenge": "Costos anuales de USD 50k en servicios de expertos extranjeros + paradas productivas por descalibración frecuente tras capacitaciones convencionales.",
+      "solution": "Desarrollo de réplica digital 1:1 de sistema SORTING con interacciones hápticas y guiado contextual en MR, permitiendo prácticas realistas sin riesgo de daño a equipos físicos.",
       "results": {
         "metrics": [
           {
-            "label": "Efficiency Improvement",
-            "value": "32%",
-            "change": 32
+            "label": "Reducción costos calibración",
+            "value": "60%",
+            "change": -60
           },
           {
-            "label": "Maintenance Cost Reduction",
+            "label": "Disminución errores operativos",
             "value": "45%",
             "change": -45
           },
           {
-            "label": "Energy Savings",
-            "value": "28%",
-            "change": -28
+            "label": "Optimización tiempo capacitación",
+            "value": "50%",
+            "change": 50
           }
         ],
         "testimonial": {
-          "quote": "MEIK LABS' digital twin solution transformed our manufacturing operations, delivering unprecedented efficiency gains.",
-          "author": "James Wilson",
-          "role": "Director of Operations, AutoTech Manufacturing"
+          "quote": "El simulador MR nos permitió estandarizar competencias técnicas en toda la región. Ahora los operarios dominan calibraciones complejas en 3 sesiones, sin necesidad de expertos externos.",
+          "author": "Pedro Estrella",
+          "role": "Líder Senior de Operaciones, Vanderlande Chile"
         }
       },
-      "technologies": ["Azure Digital Twins", "IoT Hub", "Machine Learning", "Power BI"]
+      "technologies": [
+        "Meta Quest",
+        "Unreal Engine",
+        "Autodesk Navisworks"
+        
+      ]
+    },
+    {
+      "id": "centros-cultivo-bim-acuicola",
+      "title": "Modelado 3D Paramétrico para Automatización BIM en Centros de Cultivo Acuícola",
+      "category": "Automatización BIM",
+      "image": [
+        "https://images.unsplash.com/photo-1654346713536-1c360c991704?auto=format&fit=crop&q=80&w=800",
+        "https://ik.imagekit.io/meiklabs/img/dynamoaex.png?updatedAt=1741131905543?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&q=80&w=800"
+      ],
+      "description": "Desarrollo de solución Diseño 3D paramétrico para generación automática de modelos 3D de centros de cultivo acuícola desde planos 2D de AutoCAD, integrando gestión de activos navales en formato IFC.",
+      "challenge": "Altos costos en diseño manual y falta de estandarización en proyectos acuícolas. Necesidad de digitalizar procesos con metodología BIM para la industria naval.",
+      "solution": "Software personalizado que convierte planos 2D en modelos 3D inteligentes con parametrización automática, integrando base de datos SQL de activos navales y generando entregables BIM compatibles con IFC4.",
+      "results": {
+        "metrics": [
+          {
+            "label": "Reducción de costos en diseño",
+            "value": "80%",
+            "change": -80
+          },
+          {
+            "label": "Optimización tiempo de modelado",
+            "value": "75%",
+            "change": 75
+          },
+          {
+            "label": "Disminución de errores técnicos",
+            "value": "60%",
+            "change": -60
+          }
+        ],
+        "testimonial": {
+          "quote": "La solución revolucionó nuestro workflow, pasamos de semanas de dibujo manual a horas de modelado preciso con data integrada. ¡Un game-changer para la acuicultura!",
+          "author": "Alonso Echeverría",
+          "role": "Gerente General, AEX-Group"
+        }
+      },
+      "technologies": [
+        "Dynamo BIM",
+        "Python",
+        "SQL Server",
+        "IFC4"
+      ]
     },
     {
       "id": "autonomous-warehouse-agents",

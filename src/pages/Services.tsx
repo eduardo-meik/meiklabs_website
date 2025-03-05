@@ -2,12 +2,13 @@ import React from 'react';
 import { PageLayout } from '../components/layout/PageLayout';
 import { Card } from '../components/ui/Card';
 import services from '../content/services.json';
-import { Bot, Boxes, FlaskRound as Flask } from 'lucide-react';
+import projects from '../content/projects.json';
+import { ClipboardCheck, HeartHandshake, GraduationCap } from 'lucide-react';
 
 const iconMap = {
-  Bot: Bot,
-  Boxes: Boxes,
-  Flask: Flask,
+  ClipboardCheck: ClipboardCheck,
+  HeartHandshake: HeartHandshake,
+  GraduationCap: GraduationCap
 };
 
 const Services: React.FC = () => {
@@ -68,17 +69,35 @@ const Services: React.FC = () => {
                         ))}
                       </div>
                     </div>
-                    <div className="bg-neutral-light rounded-lg p-6">
-                      <h3 className="font-display font-bold text-lg text-neutral-dark mb-2">
-                        Caso de Éxito
-                      </h3>
-                      <h4 className="font-bold text-neutral-dark mb-2">
-                        {service.useCase.title}
-                      </h4>
-                      <p className="text-gray-600">
-                        {service.useCase.description}
-                      </p>
-                    </div>
+                    {service.useCase?.projectIds && service.useCase.projectIds.length > 0 && (
+                      <div className="bg-neutral-light rounded-lg p-6">
+                        <h3 className="font-display font-bold text-lg text-neutral-dark mb-2">
+                          Casos de Éxito
+                        </h3>
+                        {service.useCase.projectIds.map((projectId, index) => {
+                          const project = projects.projects.find(p => p.id === projectId);
+                          return project && (
+                            <div
+                              key={projectId}
+                              className={`mb-6 last:mb-0 ${
+                                index !== service.useCase.projectIds.length - 1
+                                  ? "border-b border-gray-300 pb-4"
+                                  : ""
+                              }`}
+                            >
+                              <h4 className="font-bold text-neutral-dark mb-2">
+                                <a href={`/proyectos/${project.id}`} className="hover:underline">
+                                  {project.title}
+                                </a>
+                              </h4>
+                              <p className="text-gray-600">
+                                {project.description}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
                 </div>
               </Card>

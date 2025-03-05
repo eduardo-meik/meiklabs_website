@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PageLayout } from '../components/layout/PageLayout';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Mail, Phone, MapPin, Clock, Linkedin, Twitter, Github, MessageSquare } from 'lucide-react';
-import { useState } from 'react';
 import contact from '../content/contact.json';
 import { z } from 'zod';
 import { contactFormSchema, type ContactFormData, type FormState } from '../types/forms';
@@ -32,7 +31,6 @@ const Contact: React.FC = () => {
   ) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    // Limpiar error del campo cuando el usuario empieza a escribir
     if (errors[name as keyof ContactFormData]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
@@ -44,7 +42,6 @@ const Contact: React.FC = () => {
     setErrors({});
     
     try {
-      // Validar datos
       const validatedData = contactFormSchema.parse(formData);
       
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -72,7 +69,6 @@ const Contact: React.FC = () => {
         error: null,
       });
 
-      // Limpiar formulario
       setFormData({
         name: '',
         company: '',
@@ -86,7 +82,6 @@ const Contact: React.FC = () => {
       console.error('Error al enviar formulario:', error);
       
       if (error instanceof z.ZodError) {
-        // Error de validación
         const newErrors: Partial<Record<keyof ContactFormData, string>> = {};
         error.errors.forEach(err => {
           if (err.path[0]) {
@@ -123,6 +118,7 @@ const Contact: React.FC = () => {
         </p>
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
+          {/* Phone / WhatsApp */}
           <Card className="text-center hover:shadow-lg transition-shadow">
             <div className="p-6">
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -151,6 +147,7 @@ const Contact: React.FC = () => {
             </div>
           </Card>
 
+          {/* Email */}
           <Card className="text-center hover:shadow-lg transition-shadow">
             <div className="p-6">
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -167,6 +164,7 @@ const Contact: React.FC = () => {
             </div>
           </Card>
 
+          {/* Schedule */}
           <Card className="text-center hover:shadow-lg transition-shadow">
             <div className="p-6">
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -213,6 +211,7 @@ const Contact: React.FC = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12">
+          {/* Contact Form */}
           <Card>
             <div id="contact-form" className="p-8">
               <h2 className="text-2xl font-display font-bold text-neutral-dark mb-6">
@@ -313,7 +312,7 @@ const Contact: React.FC = () => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-gray-50 disabled:text-gray-500"
                     disabled={formState.isSubmitting}
                   />
-                  </div>
+                </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
                     Mensaje
@@ -349,23 +348,32 @@ const Contact: React.FC = () => {
             </div>
           </Card>
 
+          {/* Location Card with Google Maps Iframe as Background */}
           <Card padding="none">
-            <div className="h-full min-h-[400px] bg-neutral-light rounded-lg">
-              <div className="w-full h-full">
-                <div className="flex items-center justify-center h-full">
-                  <div className="text-center p-8">
-                    <MapPin className="h-12 w-12 text-primary mx-auto mb-4" />
-                    <h3 className="font-display font-bold text-lg text-neutral-dark mb-2">
-                      Nuestra Ubicación
-                    </h3>
-                    <p className="text-gray-600">
-                      {contactInfo.company.address.street}
-                      <br />
-                      {contactInfo.company.address.city}, {contactInfo.company.address.country}
-                      <br />
-                      {contactInfo.company.address.postalCode}
-                    </p>
-                  </div>
+            <div className="relative h-full min-h-[400px] rounded-lg overflow-hidden">
+              <iframe
+                title="Mapa de Ubicación"
+                className="absolute inset-0 w-full h-full"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.730888936379!2d-70.57018640489602!3d-33.40457527394576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c8b90259c7c9%3A0xd933cb3b5d60a4d9!2sYour%20Location!5e0!3m2!1sen!2sus!4v1627651200000!5m2!1sen!2sus"
+                frameBorder="0"
+                style={{ border: 0 }}
+                allowFullScreen
+                aria-hidden="false"
+                tabIndex={0}
+              />
+              <div className="relative z-10 flex items-center justify-center h-full">
+                <div className="text-center p-8 bg-white bg-opacity-80 rounded">
+                  <MapPin className="h-12 w-12 text-primary mx-auto mb-4" />
+                  <h3 className="font-display font-bold text-lg text-neutral-dark mb-2">
+                    Nuestra Ubicación
+                  </h3>
+                  <p className="text-gray-600">
+                    {contactInfo.company.address.street}
+                    <br />
+                    {contactInfo.company.address.city}, {contactInfo.company.address.country}
+                    <br />
+                    {contactInfo.company.address.postalCode}
+                  </p>
                 </div>
               </div>
             </div>

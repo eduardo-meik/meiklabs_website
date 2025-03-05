@@ -15,8 +15,7 @@
       ],
       "technologies": ["TensorFlow", "PyTorch", "OpenAI", "Langchain"],
       "useCase": {
-        "title": "Optimización de Procesos de Fabricación",
-        "description": "Reducción del 45% en defectos de producción mediante agentes de control de calidad impulsados por IA"
+        "projectIds": ["simulador-realidad-mixta-logistica", "centros-cultivo-bim-acuicola"]
       }
     },
     {
@@ -32,10 +31,9 @@
         "Integración IoT",
         "Optimización de Rendimiento"
       ],
-      "technologies": ["Unity", "Unreal Engine", "Azure Digital Twins", "IoT Hub"],
+      "technologies": ["Unity", "Unreal Engine", "Azure Digital Twins", "IoT Hub", "BIM"],
       "useCase": {
-        "title": "Implementación de Fábrica Inteligente",
-        "description": "Logro de mejora del 30% en eficiencia en operaciones de fabricación"
+        "projectIds": ["simulador-realidad-mixta-logistica", "centros-cultivo-bim-acuicola"]
       }
     },
     {
@@ -53,8 +51,7 @@
       ],
       "technologies": ["Python", "R", "MATLAB", "Scientific Computing"],
       "useCase": {
-        "title": "Desarrollo de Algoritmos Innovadores",
-        "description": "Publicación de 12 artículos de investigación en revistas de alto impacto"
+        "projectIds": ["simulador-realidad-mixta-logistica", "centros-cultivo-bim-acuicola"]
       }
     }
   ]

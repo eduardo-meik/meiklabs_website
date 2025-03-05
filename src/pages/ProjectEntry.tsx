@@ -25,15 +25,24 @@ const ProjectEntry: React.FC = () => {
     );
   }
 
+  // Ensure we always have an array of three images.
+  let images: string[] = [];
+  if (Array.isArray(project.image)) {
+    images = [...project.image];
+  } else {
+    images = [project.image];
+  }
+  // If there are less than 3 images, pad with the same image.
+  while (images.length < 3) {
+    images.push(images[0]);
+  }
+
   const relatedProjects = projects.projects
     .filter(p => p.id !== id && p.category === project.category)
     .slice(0, 2);
 
   return (
-    <PageLayout
-      title={project.title}
-      description={project.description}
-    >
+    <PageLayout title={project.title} description={project.description}>
       <article className="py-12">
         {/* Back to Projects */}
         <div className="mb-8">
@@ -51,23 +60,24 @@ const ProjectEntry: React.FC = () => {
           <div>
             <div className="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden mb-6">
               <img
-                src={project.image}
+                src={images[0]}
                 alt={project.title}
                 className="w-full h-full object-cover"
               />
             </div>
+            {/* Additional Gallery with two different images */}
             <div className="grid grid-cols-2 gap-4">
               <Card className="p-4">
                 <img
-                  src={project.image}
-                  alt="Detalle del proyecto"
+                  src={images[1]}
+                  alt={`${project.title} - Detalle 1`}
                   className="w-full h-32 object-cover rounded-lg"
                 />
               </Card>
               <Card className="p-4">
                 <img
-                  src={project.image}
-                  alt="Detalle del proyecto"
+                  src={images[2]}
+                  alt={`${project.title} - Detalle 2`}
                   className="w-full h-32 object-cover rounded-lg"
                 />
               </Card>
@@ -81,29 +91,20 @@ const ProjectEntry: React.FC = () => {
             <h1 className="text-4xl font-display font-bold text-neutral-dark mb-6">
               {project.title}
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
-              {project.description}
-            </p>
-
+            <p className="text-xl text-gray-600 mb-8">{project.description}</p>
             <div className="space-y-8">
               <div>
                 <h2 className="text-2xl font-display font-bold text-neutral-dark mb-4">
                   Desafío
                 </h2>
-                <p className="text-gray-600">
-                  {project.challenge}
-                </p>
+                <p className="text-gray-600">{project.challenge}</p>
               </div>
-
               <div>
                 <h2 className="text-2xl font-display font-bold text-neutral-dark mb-4">
                   Solución
                 </h2>
-                <p className="text-gray-600">
-                  {project.solution}
-                </p>
+                <p className="text-gray-600">{project.solution}</p>
               </div>
-
               <div>
                 <h2 className="text-2xl font-display font-bold text-neutral-dark mb-4">
                   Tecnologías Utilizadas
@@ -132,10 +133,7 @@ const ProjectEntry: React.FC = () => {
               </h2>
               <div className="grid md:grid-cols-3 gap-6">
                 {project.results.metrics.map((metric) => (
-                  <div
-                    key={metric.label}
-                    className="p-6 bg-neutral-light rounded-lg"
-                  >
+                  <div key={metric.label} className="p-6 bg-neutral-light rounded-lg">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-gray-600">{metric.label}</span>
                       {metric.change > 0 ? (
@@ -233,7 +231,11 @@ const ProjectEntry: React.FC = () => {
                   <Link to={`/proyectos/${relatedProject.id}`}>
                     <div className="aspect-w-16 aspect-h-9">
                       <img
-                        src={relatedProject.image}
+                        src={
+                          Array.isArray(relatedProject.image)
+                            ? relatedProject.image[0]
+                            : relatedProject.image
+                        }
                         alt={relatedProject.title}
                         className="object-cover w-full h-full rounded-t-lg"
                       />
